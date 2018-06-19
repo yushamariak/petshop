@@ -17,7 +17,7 @@ public class PetDAO {
     public PetDAO(Connection conexao) {
         this.conexao = conexao;
     }
-
+/*
     public void gravar(Pet contato) throws SQLException {
         String insercao = "INSERT INTO contato (nome, endereco, telefone, email) VALUES (?, ?, ?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -127,4 +127,5 @@ public class PetDAO {
             }
         }
     }
+    */
 }
