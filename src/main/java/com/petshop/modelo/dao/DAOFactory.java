@@ -14,6 +14,30 @@ public class DAOFactory {
             return new PetDAO(conexao);
         }
     }
+    
+    public UsuarioDAO criarUsuarioDAO() {
+        if (conexao == null) {
+            throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
+        } else {
+            return new UsuarioDAO(conexao);
+        }
+    }
+    
+    public UsuarioDAO criarServicoDAO() {
+        if (conexao == null) {
+            throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
+        } else {
+            return new UsuarioDAO(conexao);
+        }
+    }
+    
+    public UsuarioDAO criarClienteDAO() {
+        if (conexao == null) {
+            throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
+        } else {
+            return new UsuarioDAO(conexao);
+        }
+    }
 
     public void abrirConexao() throws SQLException {
         if (conexao == null) {

@@ -21,7 +21,7 @@ public class ConexaoFactory {
         String bd = "petshop";
         String login = "root";
 //        String login = "postgres";
-        String senha = "";
+        String senha = "0810";
         String url = caminho + "://" + host + ":" + porta + "/" + bd;
 
         Connection conexao = null;
