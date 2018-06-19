@@ -44,13 +44,13 @@ INSERT INTO servicos (descricao, valor) VALUES
 
 INSERT INTO clientes (nome, telefone, cidade, email) VALUES 
 ('Ana', 	'1111-1111', 'Uberaba', 'ana@example.com'),
-('Maria', 	'2222-2222', 'Uberaba', 'maria@example.com'),
+('Maria', '2222-2222', 'Uberaba', 'maria@example.com'),
 ('José', 	'3333-3333', 'Uberaba', 'jose@example.com'),
-('Pedro', 	'4444-4444', 'Uberaba', 'pedro@example.com'),
+('Pedro', '4444-4444', 'Uberaba', 'pedro@example.com'),
 ('João', 	'5555-5555', 'Uberaba', 'joao@example.com'),
-('Clara', 	'6666-6666', 'Uberaba', 'clara@example.com'),
-('Paula', 	'7777-7777', 'Uberaba', 'paula@example.com'),
-('Carol', 	'8888-8888', 'Uberaba', 'carol@example.com');
+('Clara', '6666-6666', 'Uberaba', 'clara@example.com'),
+('Paula', '7777-7777', 'Uberaba', 'paula@example.com'),
+('Carol', '8888-8888', 'Uberaba', 'carol@example.com');
 
 INSERT INTO funcionarios (cliente_id, usuario_id) VALUES 
 (1, 1),
