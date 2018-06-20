@@ -29,18 +29,41 @@ public class PetServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PetServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PetServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String caminho = request.getServletPath();
+
+        if (caminho.equals("/pet/novo")) {
+//            Casa casa = new Casa();
+//            casa.setCodigo(Long.parseLong(request.getParameter("codigo")));
+//            casa.setEndereco(request.getParameter("endereco"));
+//            casa.setDescricao(request.getParameter("descricao"));
+//            casa.setDono(request.getParameter("dono"));
+//            casa.setSituacao(Integer.parseInt(request.getParameter("situacao")));
+//            casa.setValorAluguel(Double.parseDouble(request.getParameter("valorAluguel")));
+//            casa.setNroVagasEstacionamento(Integer.parseInt(request.getParameter("numeroVagasEstacionamento")));
+//            String temQuintal = request.getParameter("temQuintal");
+//            if (temQuintal != null) {
+//                casa.setTemQuintal(true);
+//            } else {
+//                casa.setTemQuintal(false);
+//            }
+//            casa.setNroAndares(Integer.parseInt(request.getParameter("numeroAndares")));
+//            DAOFactory factory = new DAOFactory();
+//            try {
+//                factory.abrirConexao();
+//                CasaDAO dao = factory.criarCasaDAO();
+//                dao.gravar(casa);
+//            } catch (SQLException ex) {
+//                DAOFactory.mostrarSQLException(ex);
+//            } finally {
+//                try {
+//                    factory.fecharConexao();
+//                } catch (SQLException ex) {
+//                    DAOFactory.mostrarSQLException(ex);
+//                }
+//            }
+//            RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
+//            request.setAttribute("mensagem", "Casa inserida com sucesso.");
+//            rd.forward(request, response);
         }
     }
 
