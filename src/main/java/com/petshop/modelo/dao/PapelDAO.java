@@ -5,35 +5,37 @@
  */
 package com.petshop.modelo.dao;
 
-import com.petshop.modelo.Usuario;
+import com.petshop.modelo.Papel;
+import com.petshop.modelo.Permissao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author yusha
  */
-public class UsuarioDAO {
-    
+public class PapelDAO {
     private final Connection conexao;
     
-    public UsuarioDAO(Connection conexao) {
+    public PapelDAO(Connection conexao) {
         this.conexao = conexao;
     }
-    
-    
-    public void gravar(Usuario contato) throws SQLException {
-        String insercao = "INSERT INTO usuarios (login, senha) VALUES (?, ?);";
+        
+    public void gravar(Papel contato) throws SQLException {
+        String insercao = "INSERT INTO papel (nome, descricao) VALUES (?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, contato.getLogin());
-            pstmt.setString(2, contato.getSenha());
+            pstmt.setString(1, contato.getNome());
+            pstmt.setString(2, contato.getDescricao());
             int resultado = pstmt.executeUpdate();
             if (resultado == 1) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
-                    contato.setIdUsuario(rs.getInt(1));
+                    contato.setIdPapel(rs.getInt(1));
                 }
                 System.out.println("\nInserção bem sucedida.");
             } else {
@@ -42,25 +44,25 @@ public class UsuarioDAO {
         }
     }
     
-    public void usuarioTemPapel(Usuario contato) throws SQLException {
-        String insercao = "INSERT INTO usuario_tem_papel (usuario_idUsuario, papel_idPapel) VALUES (?, ?);";
-        try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, contato.getLogin());
-            pstmt.setString(2, contato.getSenha());
-            int resultado = pstmt.executeUpdate();
-            if (resultado == 1) {
-                ResultSet rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
-                    contato.setIdUsuario(rs.getInt(1));
+    public List<Papel> buscarTodos() throws SQLException {
+        Papel contato;
+        List<Papel> contatos = new ArrayList<>();
+        String selecao = "SELECT * FROM papel";
+        try (Statement stmt = conexao.createStatement()) {
+            try (ResultSet rs = stmt.executeQuery(selecao)) {
+                while (rs.next()) {
+                    contato = new Papel();
+                    contato.setIdPapel(rs.getInt(1));
+                    contato.setNome(rs.getString(2));
+                    contato.setDescricao(rs.getString(3));
+                    contatos.add(contato);
                 }
-                System.out.println("\nInserção bem sucedida.");
-            } else {
-                System.out.println("A inserção não foi feita corretamente.");
             }
         }
+        return contatos;
     }
 
-    public void remover(Usuario contato) throws SQLException {
+    /*public void remover(Usuario contato) throws SQLException {
         String remocao = "DELETE FROM usuarios WHERE idUsuario= ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
             pstmt.setLong(1, contato.getIdUsuario());
@@ -87,7 +89,7 @@ public class UsuarioDAO {
         }
     }
 
-   /* public Contato buscar(int idContato) throws SQLException {
+    public Contato buscar(int idContato) throws SQLException {
         Contato contato = null;
         String selecao = "SELECT * FROM contato WHERE idContato = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
@@ -104,26 +106,6 @@ public class UsuarioDAO {
             }
         }
         return contato;
-    }
-
-    public List<Contato> buscarTodos() throws SQLException {
-        Contato contato;
-        List<Contato> contatos = new ArrayList<>();
-        String selecao = "SELECT * FROM contato";
-        try (Statement stmt = conexao.createStatement()) {
-            try (ResultSet rs = stmt.executeQuery(selecao)) {
-                while (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
-                    contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
-                    contato.setTelefone(rs.getString(4));
-                    contato.setEmail(rs.getString(5));
-                    contatos.add(contato);
-                }
-            }
-        }
-        return contatos;
     }
 
     public List<Contato> buscarNome(String nome) throws SQLException {
@@ -146,5 +128,4 @@ public class UsuarioDAO {
         }
         return contatos;
     }*/
-    
 }

@@ -38,6 +38,30 @@ public class DAOFactory {
             return new UsuarioDAO(conexao);
         }
     }
+    
+    public PermissaoDAO criarPermissaoDAO() {
+        if (conexao == null) {
+            throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
+        } else {
+            return new PermissaoDAO(conexao);
+        }
+    }
+    
+    public PapelDAO criarPapelDAO() {
+        if (conexao == null) {
+            throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
+        } else {
+            return new PapelDAO(conexao);
+        }
+    }
+    
+    public PapelDAO criarFuncionarioDAO() {
+        if (conexao == null) {
+            throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
+        } else {
+            return new PapelDAO(conexao);
+        }
+    }
 
     public void abrirConexao() throws SQLException {
         if (conexao == null) {

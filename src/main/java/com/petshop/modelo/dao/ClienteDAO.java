@@ -5,7 +5,13 @@
  */
 package com.petshop.modelo.dao;
 
+import com.petshop.modelo.Cliente;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,19 +61,19 @@ public class ClienteDAO {
             }
         }
         return contato;
-    }
+    }*/
 
-    public List<Contato> buscarTodos() throws SQLException {
-        Contato contato;
-        List<Contato> contatos = new ArrayList<>();
-        String selecao = "SELECT * FROM contato";
+    public List<Cliente> buscarTodos() throws SQLException {
+        Cliente contato;
+        List<Cliente> contatos = new ArrayList<>();
+        String selecao = "SELECT * FROM clientes";
         try (Statement stmt = conexao.createStatement()) {
             try (ResultSet rs = stmt.executeQuery(selecao)) {
                 while (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
+                    contato = new Cliente();
+                    contato.setIdCliente(rs.getInt(1));
                     contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
+                    contato.setEmail(rs.getString(3));
                     contato.setTelefone(rs.getString(4));
                     contato.setEmail(rs.getString(5));
                     contatos.add(contato);
@@ -77,7 +83,7 @@ public class ClienteDAO {
         return contatos;
     }
 
-    public List<Contato> buscarNome(String nome) throws SQLException {
+    /*public List<Contato> buscarNome(String nome) throws SQLException {
         Contato contato;
         List<Contato> contatos = new ArrayList<>();
         String selecao = "SELECT * FROM contato WHERE nome LIKE ?";
