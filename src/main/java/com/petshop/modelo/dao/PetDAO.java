@@ -2,6 +2,7 @@ package com.petshop.modelo.dao;
 
 import com.petshop.modelo.Pet;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,19 +18,20 @@ public class PetDAO {
     public PetDAO(Connection conexao) {
         this.conexao = conexao;
     }
-/*
-    public void gravar(Pet contato) throws SQLException {
-        String insercao = "INSERT INTO contato (nome, endereco, telefone, email) VALUES (?, ?, ?, ?);";
+
+    public void gravar(Pet pet) throws SQLException {
+        String insercao = "INSERT INTO pets (nome, data_nascimento, sexo, raca, especie) VALUES (?, ?, ?, ?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, contato.getNome());
-            pstmt.setString(2, contato.getEndereco());
-            pstmt.setString(3, contato.getTelefone());
-            pstmt.setString(4, contato.getEmail());
+            pstmt.setString(1, pet.getNome());
+            pstmt.setDate(2, Date.valueOf(pet.getData_nascimento()));
+            pstmt.setString(3, pet.getSexo());
+            pstmt.setString(4, pet.getRaca());
+            pstmt.setString(5, pet.getEspecie());
             int resultado = pstmt.executeUpdate();
             if (resultado == 1) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
-                    contato.setIdContato(rs.getLong(1));
+                    pet.setIdPet(rs.getLong(1));
                 }
                 System.out.println("\nInserção bem sucedida.");
             } else {
@@ -38,38 +40,40 @@ public class PetDAO {
         }
     }
 
-    public Contato buscar(int idContato) throws SQLException {
-        Contato contato = null;
+    public Pet buscar(int idContato) throws SQLException {
+        Pet contato = null;
         String selecao = "SELECT * FROM contato WHERE idContato = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
             pstmt.setInt(1, idContato);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
+                    contato = new Pet();
+                    contato.setIdPet(rs.getLong(1));
                     contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
-                    contato.setTelefone(rs.getString(4));
-                    contato.setEmail(rs.getString(5));
+                    //contato.setData_nascimento(rs.getString(3));
+                    contato.setSexo(rs.getString(4));
+                    contato.setRaca(rs.getString(5));
+                    contato.setEspecie(rs.getString(6));
                 }
             }
         }
         return contato;
     }
 
-    public List<Contato> buscarTodos() throws SQLException {
-        Contato contato;
-        List<Contato> contatos = new ArrayList<>();
-        String selecao = "SELECT * FROM contato";
+    public List<Pet> buscarTodos() throws SQLException {
+        Pet contato;
+        List<Pet> contatos = new ArrayList<>();
+        String selecao = "SELECT * FROM pets";
         try (Statement stmt = conexao.createStatement()) {
             try (ResultSet rs = stmt.executeQuery(selecao)) {
                 while (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
+                    contato = new Pet();
+                    contato.setIdPet(rs.getLong(1));
                     contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
-                    contato.setTelefone(rs.getString(4));
-                    contato.setEmail(rs.getString(5));
+                    //contato.setData_nascimento(rs.getString(3));
+                    contato.setSexo(rs.getString(4));
+                    contato.setRaca(rs.getString(5));
+                    contato.setEspecie(rs.getString(6));
                     contatos.add(contato);
                 }
             }
@@ -77,20 +81,22 @@ public class PetDAO {
         return contatos;
     }
 
-    public List<Contato> buscarNome(String nome) throws SQLException {
-        Contato contato;
-        List<Contato> contatos = new ArrayList<>();
-        String selecao = "SELECT * FROM contato WHERE nome LIKE ?";
+    public List<Pet> buscarNome(String nome) throws SQLException {
+        Pet contato;
+        List<Pet> contatos = new ArrayList<>();
+        String selecao = "SELECT * FROM pets WHERE nome LIKE ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
             pstmt.setString(1, "%" + nome + "%");
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
+                    
+                    contato = new Pet();
+                    contato.setIdPet(rs.getLong(1));
                     contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
-                    contato.setTelefone(rs.getString(4));
-                    contato.setEmail(rs.getString(5));
+                    //contato.setData_nascimento(rs.getString(3));
+                    contato.setSexo(rs.getString(4));
+                    contato.setRaca(rs.getString(5));
+                    contato.setEspecie(rs.getString(6));
                     contatos.add(contato);
                 }
             }
@@ -98,10 +104,10 @@ public class PetDAO {
         return contatos;
     }
 
-    public void remover(Contato contato) throws SQLException {
-        String remocao = "DELETE FROM contato WHERE idContato = ?";
+    public void remover(Pet contato) throws SQLException {
+        String remocao = "DELETE FROM contato WHERE idPet = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
-            pstmt.setLong(1, contato.getIdContato());
+            pstmt.setLong(1, contato.getIdPet());
             int remocoes = pstmt.executeUpdate();
             if (remocoes == 1) {
                 System.out.println("Remoção efetuada com sucesso.");
@@ -111,14 +117,14 @@ public class PetDAO {
         }
     }
 
-    public void atualizar(Contato contato) throws SQLException {
-        String alteracao = "UPDATE contato SET nome = ?, endereco = ?, telefone = ?, email = ? WHERE idContato = ?;";
+    public void atualizar(Pet pet) throws SQLException {
+        String alteracao = "UPDATE pet SET nome = ?, data_nascimento = ?, sexo = ?, raca = ?,especie = ? WHERE idPet = ?;";
         try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {
-            pstmt.setString(1, contato.getNome());
-            pstmt.setString(2, contato.getEndereco());
-            pstmt.setString(3, contato.getTelefone());
-            pstmt.setString(4, contato.getEmail());
-            pstmt.setLong(5, contato.getIdContato());
+           pstmt.setString(1, pet.getNome());
+            pstmt.setDate(2, Date.valueOf(pet.getData_nascimento()));
+            pstmt.setString(3, pet.getSexo());
+            pstmt.setString(4, pet.getRaca());
+            pstmt.setString(5, pet.getEspecie());
             int alteracoes = pstmt.executeUpdate();
             if (alteracoes == 1) {
                 System.out.println("\nAlteracao bem sucedida.");
@@ -127,5 +133,4 @@ public class PetDAO {
             }
         }
     }
-    */
 }
