@@ -5,8 +5,14 @@
  */
 package com.petshop.controle;
 
+import com.petshop.modelo.Pet;
+import com.petshop.modelo.dao.DAOFactory;
+import com.petshop.modelo.dao.PetDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,39 +38,81 @@ public class PetServlet extends HttpServlet {
         String caminho = request.getServletPath();
 
         if (caminho.equals("/pet/novo")) {
-//            Casa casa = new Casa();
-//            casa.setCodigo(Long.parseLong(request.getParameter("codigo")));
-//            casa.setEndereco(request.getParameter("endereco"));
-//            casa.setDescricao(request.getParameter("descricao"));
-//            casa.setDono(request.getParameter("dono"));
-//            casa.setSituacao(Integer.parseInt(request.getParameter("situacao")));
-//            casa.setValorAluguel(Double.parseDouble(request.getParameter("valorAluguel")));
-//            casa.setNroVagasEstacionamento(Integer.parseInt(request.getParameter("numeroVagasEstacionamento")));
-//            String temQuintal = request.getParameter("temQuintal");
-//            if (temQuintal != null) {
-//                casa.setTemQuintal(true);
-//            } else {
-//                casa.setTemQuintal(false);
-//            }
-//            casa.setNroAndares(Integer.parseInt(request.getParameter("numeroAndares")));
-//            DAOFactory factory = new DAOFactory();
-//            try {
-//                factory.abrirConexao();
-//                CasaDAO dao = factory.criarCasaDAO();
-//                dao.gravar(casa);
-//            } catch (SQLException ex) {
-//                DAOFactory.mostrarSQLException(ex);
-//            } finally {
-//                try {
-//                    factory.fecharConexao();
-//                } catch (SQLException ex) {
-//                    DAOFactory.mostrarSQLException(ex);
-//                }
-//            }
-//            RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
-//            request.setAttribute("mensagem", "Casa inserida com sucesso.");
-//            rd.forward(request, response);
+            System.out.println("############Entrou NOVO");
+            Pet casa = new Pet();
+            casa.setNome(request.getParameter("nome"));
+            casa.setRaca(request.getParameter("raca"));
+            casa.setEspecie(request.getParameter("especie"));
+            String sex = request.getParameter("sexo");
+            if(sex.equals('1')){
+                sex = "M";
+            } else {
+                sex = "F";
+            }
+            casa.setSexo(sex);
+            casa.setData_nascimento(request.getParameter("data_nascimento"));
+            casa.setCliente_id(Integer.parseInt(request.getParameter("dono")));
+//            System.out.println("njsdjkanasda"+ casa);
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                PetDAO dao = factory.criarPetDAO();
+                dao.gravar(casa);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
+            request.setAttribute("mensagem", "Pet Inserido com Sucesso.");
+            rd.forward(request, response);
+        } else  if (caminho.equals("/pet/listar")){
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                PetDAO dao = factory.criarPetDAO();
+                List<Pet> casas = dao.buscarTodos();
+                request.setAttribute("pets", casas);
+                System.out.println("##### AQUI MANO     :: "+ casas);
+                RequestDispatcher rd = request.getRequestDispatcher("/petTodos.jsp");
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+        }else if (caminho.equals("/pet/excluir")) {
+        
+            Pet pet = new Pet();
+            pet.setIdPet(Long.parseLong(request.getParameter("idPet")));
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                PetDAO dao = factory.criarPetDAO();
+                dao.remover(pet);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
+            request.setAttribute("mensagem", "Pet removido com Sucesso.");
+            rd.forward(request, response);
+            
         }
+           
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,10 +46,11 @@
             </div>
           </nav>
 
-          <div class="row text-center" style="background-color: #fff !important; color: rgba(235, 245, 50, 1);  padding-top: 300px !important; font-size: 100px;">
+          <div class="row text-center" style="background-color: #fff !important; color: rgba(235, 245, 50, 1);  padding-top: 300px !important; font-size: 70px;">
             <div class="col-sm-12">
-              <span style="color: #787878">pet</span>Shop
+              ${mensagem}
             </div>
           </div>
     </body>
 </html>
+

@@ -20,13 +20,14 @@ public class PetDAO {
     }
 
     public void gravar(Pet pet) throws SQLException {
-        String insercao = "INSERT INTO pets (nome, data_nascimento, sexo, raca, especie) VALUES (?, ?, ?, ?, ?);";
+        String insercao = "INSERT INTO pets (nome, data_nascimento, sexo, raca, especie, cliente_id) VALUES (?, ?, ?, ?, ?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, pet.getNome());
-            pstmt.setDate(2, Date.valueOf(pet.getData_nascimento()));
+            pstmt.setString(2, pet.getData_nascimento());
             pstmt.setString(3, pet.getSexo());
             pstmt.setString(4, pet.getRaca());
             pstmt.setString(5, pet.getEspecie());
+            pstmt.setInt(6, pet.getCliente_id());
             int resultado = pstmt.executeUpdate();
             if (resultado == 1) {
                 ResultSet rs = pstmt.getGeneratedKeys();
@@ -50,7 +51,7 @@ public class PetDAO {
                     contato = new Pet();
                     contato.setIdPet(rs.getLong(1));
                     contato.setNome(rs.getString(2));
-                    //contato.setData_nascimento(rs.getString(3));
+                    contato.setData_nascimento(rs.getString(3));
                     contato.setSexo(rs.getString(4));
                     contato.setRaca(rs.getString(5));
                     contato.setEspecie(rs.getString(6));
@@ -70,7 +71,7 @@ public class PetDAO {
                     contato = new Pet();
                     contato.setIdPet(rs.getLong(1));
                     contato.setNome(rs.getString(2));
-                    //contato.setData_nascimento(rs.getString(3));
+                    contato.setData_nascimento(rs.getString(3));
                     contato.setSexo(rs.getString(4));
                     contato.setRaca(rs.getString(5));
                     contato.setEspecie(rs.getString(6));
@@ -93,7 +94,7 @@ public class PetDAO {
                     contato = new Pet();
                     contato.setIdPet(rs.getLong(1));
                     contato.setNome(rs.getString(2));
-                    //contato.setData_nascimento(rs.getString(3));
+                    contato.setData_nascimento(rs.getString(3));
                     contato.setSexo(rs.getString(4));
                     contato.setRaca(rs.getString(5));
                     contato.setEspecie(rs.getString(6));
@@ -105,7 +106,7 @@ public class PetDAO {
     }
 
     public void remover(Pet contato) throws SQLException {
-        String remocao = "DELETE FROM contato WHERE idPet = ?";
+        String remocao = "DELETE FROM pets WHERE idPet = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(remocao)) {
             pstmt.setLong(1, contato.getIdPet());
             int remocoes = pstmt.executeUpdate();
@@ -121,7 +122,7 @@ public class PetDAO {
         String alteracao = "UPDATE pet SET nome = ?, data_nascimento = ?, sexo = ?, raca = ?,especie = ? WHERE idPet = ?;";
         try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {
            pstmt.setString(1, pet.getNome());
-            pstmt.setDate(2, Date.valueOf(pet.getData_nascimento()));
+            pstmt.setString(2, pet.getData_nascimento());
             pstmt.setString(3, pet.getSexo());
             pstmt.setString(4, pet.getRaca());
             pstmt.setString(5, pet.getEspecie());

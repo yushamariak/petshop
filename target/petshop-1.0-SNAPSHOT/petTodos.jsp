@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +29,7 @@
                     <form action="/PetShop/inserir.html">                
                       <button type="submit" class="btn btn-default dropdown-item">Novo</button>
                     </form>
-                    <a class="dropdown-item" href="/PetShop/pet/listar">Listar</a>
+                    <a class="dropdown-item" href="#">Listar</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -44,11 +46,53 @@
 
             </div>
           </nav>
-
-          <div class="row text-center" style="background-color: #fff !important; color: rgba(235, 245, 50, 1);  padding-top: 300px !important; font-size: 100px;">
+           <div class="row text-center" style="background-color: #fff !important; color: rgba(235, 245, 50, 1);  padding-top: 50px !important; font-size: 40px;">
             <div class="col-sm-12">
-              <span style="color: #787878">pet</span>Shop
+              Pets
             </div>
           </div>
+        <div class="row" style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
+          <c:forEach var="pet" items="${pets}">            
+            <div class="col-sm-3 text-center" style="margin-top: 20px;">
+                <div style="width: 100%;background: #dedede; border-radius: 25px; padding-top: 25px; padding-bottom: 25px;"> 
+                    <strong><h4 style="color: #787878; font-weight: bold;"> ${pet.nome}</h4></strong>
+                    <i style="color: #909090;">
+                        <strong>id: &nbsp;</strong> ${pet.idPet}</br>
+                        <strong>Especie: &nbsp;</strong> ${pet.especie}</br>
+                        <strong>Raca:&nbsp; </strong> ${pet.raca}</br>
+                        <strong>Dt Nascimento: &nbsp;</strong> ${pet.data_nascimento}</br>
+                        
+                    </i>
+                    <div clas="row" style="padding-top: 15px;"> 
+                        <div clss="col-md-12">
+                        
+                            <form class="col-md-6" style="width: 50% !important;" action="/PetShop/pet/excluir" method="post">
+                             <input type="hidden" name="idPet" value="${pet.idPet}">
+                            <button type="submit"  class="btn btn-primary" style="background: rgb(129, 129, 129);  border: none;">Excluir</button>
+                         </form>
+                        
+                            <form class="col-md-6" style="width: 50% !important; " action="/PetShop/pet/alterar" method="post">
+                                <input type="hidden" name="idPet" value="${pet.idPet}">
+                                <button type="submit" class="btn btn-primary" style="background: rgba(235, 245, 50, 1); color: rgb(129, 129, 129); border: none;">Editar</button>
+                              
+                            </form>
+                        
+                        </div>
+                         
+
+                    </div>
+                </div>
+            </div>
+           </c:forEach>
+        </div>
+          
+                
+<!--                <div class="row text-center" style="background-color: #fff !important; color: rgba(235, 245, 50, 1);  padding-top: 300px !important; font-size: 70px;">
+                    <div class="col-sm-12">
+                      
+                    </div>
+                  </div>-->
+             
     </body>
 </html>
+

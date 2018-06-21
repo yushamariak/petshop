@@ -15,10 +15,60 @@ import java.util.Objects;
 public class Pet {
     private long idPet;
     private String nome;
-    private LocalDate data_nascimento;
+    private String data_nascimento;
     private String sexo;
     private String raca;
     private String especie;
+    private int cliente_id;
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + (int) (this.idPet ^ (this.idPet >>> 32));
+        hash = 61 * hash + Objects.hashCode(this.nome);
+        hash = 61 * hash + Objects.hashCode(this.data_nascimento);
+        hash = 61 * hash + Objects.hashCode(this.sexo);
+        hash = 61 * hash + Objects.hashCode(this.raca);
+        hash = 61 * hash + Objects.hashCode(this.especie);
+        hash = 61 * hash + this.cliente_id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pet other = (Pet) obj;
+        if (this.idPet != other.idPet) {
+            return false;
+        }
+        if (this.cliente_id != other.cliente_id) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.sexo, other.sexo)) {
+            return false;
+        }
+        if (!Objects.equals(this.raca, other.raca)) {
+            return false;
+        }
+        if (!Objects.equals(this.especie, other.especie)) {
+            return false;
+        }
+        if (!Objects.equals(this.data_nascimento, other.data_nascimento)) {
+            return false;
+        }
+        return true;
+    }
 
     public long getIdPet() {
         return idPet;
@@ -36,11 +86,11 @@ public class Pet {
         this.nome = nome;
     }
 
-    public LocalDate getData_nascimento() {
+    public String getData_nascimento() {
         return data_nascimento;
     }
 
-    public void setData_nascimento(LocalDate data_nascimento) {
+    public void setData_nascimento(String data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 
@@ -68,56 +118,20 @@ public class Pet {
         this.especie = especie;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + (int) (this.idPet ^ (this.idPet >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.nome);
-        hash = 71 * hash + Objects.hashCode(this.data_nascimento);
-        hash = 71 * hash + Objects.hashCode(this.sexo);
-        hash = 71 * hash + Objects.hashCode(this.raca);
-        hash = 71 * hash + Objects.hashCode(this.especie);
-        return hash;
+    public int getCliente_id() {
+        return cliente_id;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pet other = (Pet) obj;
-        if (this.idPet != other.idPet) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.sexo, other.sexo)) {
-            return false;
-        }
-        if (!Objects.equals(this.raca, other.raca)) {
-            return false;
-            
-        }
-        if (!Objects.equals(this.especie, other.especie)) {
-            return false;
-        }
-        if (!Objects.equals(this.data_nascimento, other.data_nascimento)) {
-            return false;
-        }
-        return true;
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
     }
-
+   
     @Override
     public String toString() {
-        return "Pet{" + "idPet=" + idPet + ", nome=" + nome + ", data_nascimento=" + data_nascimento + ", sexo=" + sexo + ", raca=" + raca + ", especie=" + especie + '}';
+        return "Pet{" + "idPet=" + idPet + ", nome=" + nome + ", data_nascimento=" + data_nascimento + ", sexo=" + sexo + ", raca=" + raca + ", especie=" + especie + ", cliente_id=" + cliente_id + '}';
     }
+
+    
     
     
 }
