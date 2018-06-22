@@ -10,6 +10,7 @@ import com.petshop.modelo.dao.DAOFactory;
 import com.petshop.modelo.dao.PetDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -43,13 +44,13 @@ public class PetServlet extends HttpServlet {
             casa.setNome(request.getParameter("nome"));
             casa.setRaca(request.getParameter("raca"));
             casa.setEspecie(request.getParameter("especie"));
-            String sex = request.getParameter("sexo");
-            if(sex.equals('1')){
-                sex = "M";
+            int sex = parseInt(request.getParameter("sexo"));
+            if(sex== 1){
+                casa.setSexo("M");
             } else {
-                sex = "F";
+                casa.setSexo("F");
             }
-            casa.setSexo(sex);
+            
             casa.setData_nascimento(request.getParameter("data_nascimento"));
             casa.setCliente_id(Integer.parseInt(request.getParameter("dono")));
 //            System.out.println("njsdjkanasda"+ casa);
@@ -111,6 +112,61 @@ public class PetServlet extends HttpServlet {
             request.setAttribute("mensagem", "Pet removido com Sucesso.");
             rd.forward(request, response);
             
+        }else if (caminho.equals("/pet/buscar")) {
+            
+            Pet pet = new Pet();
+            pet.setIdPet(Long.parseLong(request.getParameter("idPet")));
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                PetDAO dao = factory.criarPetDAO();
+                Pet objPet = dao.buscar(Long.parseLong(request.getParameter("idPet")));
+                request.setAttribute("pet", objPet);
+                System.out.println("##### AQUI MANO     :: "+ objPet);
+                RequestDispatcher rd = request.getRequestDispatcher("/petEditar.jsp");
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+        }else if (caminho.equals("/pet/alterar")) {
+            System.out.println("############Entrou Alterar");
+            Pet casa = new Pet();
+            casa.setIdPet(Long.parseLong(request.getParameter("idPet")));
+            casa.setNome(request.getParameter("nome"));
+            casa.setRaca(request.getParameter("raca"));
+            casa.setEspecie(request.getParameter("especie"));
+            int sex = parseInt(request.getParameter("sexo"));
+            if(sex== 1){
+                casa.setSexo("M");
+            } else {
+                casa.setSexo("F");
+            }
+            casa.setData_nascimento(request.getParameter("data_nascimento"));
+            casa.setCliente_id(Integer.parseInt(request.getParameter("dono")));
+//            System.out.println("njsdjkanasda"+ casa);
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                PetDAO dao = factory.criarPetDAO();
+                dao.atualizar(casa);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
+            request.setAttribute("mensagem", "Pet Alterado com Sucesso.");
+            rd.forward(request, response);
         }
            
     }

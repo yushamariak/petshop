@@ -41,11 +41,11 @@ public class PetDAO {
         }
     }
 
-    public Pet buscar(int idContato) throws SQLException {
+    public Pet buscar(long idContato) throws SQLException {
         Pet contato = null;
-        String selecao = "SELECT * FROM contato WHERE idContato = ?";
+        String selecao = "SELECT * FROM pets WHERE idPet = ?";
         try (PreparedStatement pstmt = conexao.prepareStatement(selecao)) {
-            pstmt.setInt(1, idContato);
+            pstmt.setLong(1, idContato);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     contato = new Pet();
@@ -55,12 +55,14 @@ public class PetDAO {
                     contato.setSexo(rs.getString(4));
                     contato.setRaca(rs.getString(5));
                     contato.setEspecie(rs.getString(6));
+                    contato.setCliente_id(rs.getInt(7));
                 }
             }
         }
         return contato;
     }
 
+    
     public List<Pet> buscarTodos() throws SQLException {
         Pet contato;
         List<Pet> contatos = new ArrayList<>();
@@ -119,13 +121,15 @@ public class PetDAO {
     }
 
     public void atualizar(Pet pet) throws SQLException {
-        String alteracao = "UPDATE pet SET nome = ?, data_nascimento = ?, sexo = ?, raca = ?,especie = ? WHERE idPet = ?;";
+        String alteracao = "UPDATE pets SET nome = ?, data_nascimento = ?, sexo = ?, raca = ?,especie = ?, cliente_id = ? WHERE idPet = ?;";
         try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {
            pstmt.setString(1, pet.getNome());
             pstmt.setString(2, pet.getData_nascimento());
             pstmt.setString(3, pet.getSexo());
             pstmt.setString(4, pet.getRaca());
             pstmt.setString(5, pet.getEspecie());
+            pstmt.setLong(6, pet.getCliente_id());
+            pstmt.setLong(7, pet.getIdPet());
             int alteracoes = pstmt.executeUpdate();
             if (alteracoes == 1) {
                 System.out.println("\nAlteracao bem sucedida.");

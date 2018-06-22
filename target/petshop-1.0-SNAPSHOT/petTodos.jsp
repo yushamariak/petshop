@@ -53,29 +53,38 @@
           </div>
         <div class="row" style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
           <c:forEach var="pet" items="${pets}">            
-            <div class="col-sm-3 text-center" style="margin-top: 20px;">
+            <div class="col-sm-3 col-md-3 text-center" style="margin-top: 20px;">
                 <div style="width: 100%;background: #dedede; border-radius: 25px; padding-top: 25px; padding-bottom: 25px;"> 
                     <strong><h4 style="color: #787878; font-weight: bold;"> ${pet.nome}</h4></strong>
                     <i style="color: #909090;">
                         <strong>id: &nbsp;</strong> ${pet.idPet}</br>
                         <strong>Especie: &nbsp;</strong> ${pet.especie}</br>
                         <strong>Raca:&nbsp; </strong> ${pet.raca}</br>
+                        <strong>Sexo: &nbsp;</strong> ${pet.sexo == 'M' ? 'Macho' : "Femea"}</br>
                         <strong>Dt Nascimento: &nbsp;</strong> ${pet.data_nascimento}</br>
-                        
                     </i>
                     <div clas="row" style="padding-top: 15px;"> 
                         <div clss="col-md-12">
+                            <div class="row"> 
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    <form  style="width: 50% !important;" action="/PetShop/pet/excluir" method="post">
+                                        <input type="hidden" name="idPet" value="${pet.idPet}">
+                                       <button type="submit"  class="btn btn-primary" style="background: rgb(129, 129, 129);  border: none;">Excluir</button>
+                                    </form>
+                                </div>
+                                <div class="col-md-3">
+                                    <form  style="width: 50% !important; " action="/PetShop/pet/buscar" method="post">
+                                        <input type="hidden" name="idPet" value="${pet.idPet}">
+                                        <button type="submit" class="btn btn-primary" style="background: rgba(235, 245, 50, 1); color: rgb(129, 129, 129); border: none;">Editar</button>
+
+                                    </form>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                          
                         
-                            <form class="col-md-6" style="width: 50% !important;" action="/PetShop/pet/excluir" method="post">
-                             <input type="hidden" name="idPet" value="${pet.idPet}">
-                            <button type="submit"  class="btn btn-primary" style="background: rgb(129, 129, 129);  border: none;">Excluir</button>
-                         </form>
-                        
-                            <form class="col-md-6" style="width: 50% !important; " action="/PetShop/pet/alterar" method="post">
-                                <input type="hidden" name="idPet" value="${pet.idPet}">
-                                <button type="submit" class="btn btn-primary" style="background: rgba(235, 245, 50, 1); color: rgb(129, 129, 129); border: none;">Editar</button>
-                              
-                            </form>
+                            
                         
                         </div>
                          
