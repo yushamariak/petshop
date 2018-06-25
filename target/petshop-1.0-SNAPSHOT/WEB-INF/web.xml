@@ -8,12 +8,16 @@
         <servlet-name>PetServlet</servlet-name>
         <servlet-class>com.petshop.controle.PetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <servlet-class>com.petshop.controle.UsuarioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PetServlet</servlet-name>
-        <url-pattern>/PetServlet</url-pattern>        
+        <url-pattern>/PetServlet</url-pattern>
         <url-pattern>/pet/novo</url-pattern>
-        <url-pattern>/pet/listar</url-pattern>   
-        <url-pattern>/pet/excluir</url-pattern>    
+        <url-pattern>/pet/listar</url-pattern>
+        <url-pattern>/pet/excluir</url-pattern>
         <url-pattern>/pet/alterar</url-pattern>
         <url-pattern>/pet/buscar</url-pattern>
         <url-pattern>/pet/relatorio</url-pattern>
@@ -23,6 +27,14 @@
         <url-pattern>/servico/prepara</url-pattern>
         <url-pattern>/servico/novo</url-pattern>
         <url-pattern>/servico/relatorio</url-pattern>
+        <url-pattern>/servico/listar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/listar</url-pattern>
+        <url-pattern>/novo</url-pattern>
+        <url-pattern>/alterar</url-pattern>
+        <url-pattern>/excluir</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

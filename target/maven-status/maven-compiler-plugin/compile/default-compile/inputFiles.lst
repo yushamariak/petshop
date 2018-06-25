@@ -9,6 +9,7 @@
 /home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/modelo/Permissao.java
 /home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/modelo/Funcionario.java
 /home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/modelo/dao/PermissaoDAO.java
+/home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/controle/UsuarioServlet.java
 /home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/modelo/dao/DAOFactory.java
 /home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/modelo/Papel.java
 /home/adryell/Documentos/dawII_2018/petshop/src/main/java/com/petshop/modelo/dao/ServicoDAO.java

@@ -16,3 +16,4 @@ com/petshop/modelo/Usuario.class
 com/petshop/modelo/dao/ConexaoFactory.class
 com/petshop/modelo/dao/PetDAO.class
 com/petshop/modelo/Cliente.class
+com/petshop/controle/UsuarioServlet.class

@@ -5,6 +5,7 @@
  */
 package com.petshop.controle;
 
+
 import com.petshop.modelo.Pet;
 import com.petshop.modelo.Servico;
 import com.petshop.modelo.dao.DAOFactory;
@@ -13,6 +14,7 @@ import com.petshop.modelo.dao.ServicoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
+
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -38,6 +40,7 @@ public class ServicoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         
         String caminho = request.getServletPath();
          if (caminho.equals("/servico/prepara")) {
@@ -74,7 +77,9 @@ public class ServicoServlet extends HttpServlet {
             try {
                 factory.abrirConexao();
                 ServicoDAO dao = factory.criarServicoDAO();
+
                 dao.gravar(pet, servico, 1, data);
+
             } catch (SQLException ex) {
                 DAOFactory.mostrarSQLException(ex);
             } finally {
@@ -84,10 +89,12 @@ public class ServicoServlet extends HttpServlet {
                     DAOFactory.mostrarSQLException(ex);
                 }
             }
+
             RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
             request.setAttribute("mensagem", "Servico Registrado com Sucesso.");
             rd.forward(request, response);
          }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
