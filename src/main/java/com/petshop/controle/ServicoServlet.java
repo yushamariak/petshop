@@ -5,8 +5,17 @@
  */
 package com.petshop.controle;
 
+import com.petshop.modelo.Pet;
+import com.petshop.modelo.Servico;
+import com.petshop.modelo.dao.DAOFactory;
+import com.petshop.modelo.dao.PetDAO;
+import com.petshop.modelo.dao.ServicoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.sql.SQLException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,19 +38,56 @@ public class ServicoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServicoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServicoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        String caminho = request.getServletPath();
+         if (caminho.equals("/servico/prepara")) {
+             DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                
+                PetDAO dao = factory.criarPetDAO();
+                List<Pet> casas = dao.buscarTodos();
+                request.setAttribute("pets", casas);
+                System.out.println("MAMNANANOAONAONAOANNA :::: " + casas);
+                ServicoDAO daoServico = factory.criarServicoDAO();
+                List<Servico> servicos = daoServico.buscarTodos();
+                request.setAttribute("servicos", servicos);
+                System.out.println("MAMNANANOAONAONAOANNA :::: " + servicos);
+                RequestDispatcher rd = request.getRequestDispatcher("/newServico.jsp");
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+         }else if(caminho.equals("/servico/novo")) {
+             System.out.println("MANOLO REIS::: " + Integer.parseInt(request.getParameter("servico")) +" || "+ parseInt(request.getParameter("pet")) +" || "+ parseInt(request.getParameter("pet")));
+            int servico = Integer.parseInt(request.getParameter("servico"));
+            int pet = Integer.parseInt(request.getParameter("pet"));
+            String data = request.getParameter("data_servico");
+
+            DAOFactory factory = new DAOFactory();
+            try {
+                factory.abrirConexao();
+                ServicoDAO dao = factory.criarServicoDAO();
+                dao.gravar(pet, servico, 1, data);
+            } catch (SQLException ex) {
+                DAOFactory.mostrarSQLException(ex);
+            } finally {
+                try {
+                    factory.fecharConexao();
+                } catch (SQLException ex) {
+                    DAOFactory.mostrarSQLException(ex);
+                }
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
+            request.setAttribute("mensagem", "Servico Registrado com Sucesso.");
+            rd.forward(request, response);
+         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -11,6 +11,15 @@ package com.petshop.modelo;
  */
 public class Funcionario {
     int cliente_id, usuario_id, idFuncionario;
+    String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public Funcionario() {
     }

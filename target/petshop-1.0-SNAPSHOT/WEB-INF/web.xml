@@ -20,6 +20,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServicoServlet</servlet-name>
+        <url-pattern>/servico/prepara</url-pattern>
         <url-pattern>/servico/novo</url-pattern>
         <url-pattern>/servico/relatorio</url-pattern>
     </servlet-mapping>

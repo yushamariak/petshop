@@ -23,11 +23,11 @@ public class DAOFactory {
         }
     }
     
-    public UsuarioDAO criarServicoDAO() {
+    public ServicoDAO criarServicoDAO() {
         if (conexao == null) {
             throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
         } else {
-            return new UsuarioDAO(conexao);
+            return new ServicoDAO(conexao);
         }
     }
     

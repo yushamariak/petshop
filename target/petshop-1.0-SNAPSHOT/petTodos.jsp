@@ -37,7 +37,7 @@
                     Serviços
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Novo</a>
+                    <a class="dropdown-item" href="/PetShop/servico/prepara">Novo</a>
                     <a class="dropdown-item" href="#">Listar</a>
                   </div>
                 </li>
