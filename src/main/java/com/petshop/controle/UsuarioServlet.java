@@ -5,13 +5,8 @@
  */
 package com.petshop.controle;
 
-import com.petshop.modelo.Servico;
-import com.petshop.modelo.dao.DAOFactory;
-import com.petshop.modelo.dao.ServicoDAO;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author yusha
  */
-public class ServicoServlet extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,25 +29,18 @@ public class ServicoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String caminho = request.getServletPath();
-        if (caminho.equals("/servico/listar")){
-            DAOFactory factory = new DAOFactory();
-            try {
-                factory.abrirConexao();
-                ServicoDAO dao = factory.criarServicoDAO();
-                List<Servico> casas = dao.buscarTodos();
-                request.setAttribute("servicos", casas);
-                RequestDispatcher rd = request.getRequestDispatcher("/servicoTodos.jsp");
-                rd.forward(request, response);
-            } catch (SQLException ex) {
-                DAOFactory.mostrarSQLException(ex);
-            } finally {
-                try {
-                    factory.fecharConexao();
-                } catch (SQLException ex) {
-                    DAOFactory.mostrarSQLException(ex);
-                }
-            }
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UsuarioServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UsuarioServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

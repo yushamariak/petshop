@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,6 +43,24 @@ public class ServicoDAO {
         }
     }
 
+    public List<Servico> buscarTodos() throws SQLException {
+        Servico contato;
+        List<Servico> contatos = new ArrayList<>();
+        String selecao = "SELECT * FROM servicos";
+        try (Statement stmt = conexao.createStatement()) {
+            try (ResultSet rs = stmt.executeQuery(selecao)) {
+                while (rs.next()) {
+                    contato = new Servico();
+                    contato.setIdServico(rs.getInt(1));
+                    contato.setDescricao(rs.getString(2));
+                    contato.setValor(rs.getInt(3));
+                    contatos.add(contato);
+                }
+            }
+        }
+        return contatos;
+    }
+    
    /* public Contato buscar(int idContato) throws SQLException {
         Contato contato = null;
         String selecao = "SELECT * FROM contato WHERE idContato = ?";
@@ -57,26 +78,6 @@ public class ServicoDAO {
             }
         }
         return contato;
-    }
-
-    public List<Contato> buscarTodos() throws SQLException {
-        Contato contato;
-        List<Contato> contatos = new ArrayList<>();
-        String selecao = "SELECT * FROM contato";
-        try (Statement stmt = conexao.createStatement()) {
-            try (ResultSet rs = stmt.executeQuery(selecao)) {
-                while (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
-                    contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
-                    contato.setTelefone(rs.getString(4));
-                    contato.setEmail(rs.getString(5));
-                    contatos.add(contato);
-                }
-            }
-        }
-        return contatos;
     }
 
     public List<Contato> buscarNome(String nome) throws SQLException {

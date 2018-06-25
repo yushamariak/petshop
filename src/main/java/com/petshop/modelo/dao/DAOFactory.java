@@ -23,19 +23,19 @@ public class DAOFactory {
         }
     }
     
-    public UsuarioDAO criarServicoDAO() {
+    public ServicoDAO criarServicoDAO() {
         if (conexao == null) {
             throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
         } else {
-            return new UsuarioDAO(conexao);
+            return new ServicoDAO(conexao);
         }
     }
     
-    public UsuarioDAO criarClienteDAO() {
+    public ClienteDAO criarClienteDAO() {
         if (conexao == null) {
             throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
         } else {
-            return new UsuarioDAO(conexao);
+            return new ClienteDAO(conexao);
         }
     }
     
@@ -55,11 +55,11 @@ public class DAOFactory {
         }
     }
     
-    public PapelDAO criarFuncionarioDAO() {
+    public FuncionarioDAO criarFuncionarioDAO() {
         if (conexao == null) {
             throw new IllegalStateException("Abra uma conexão antes de criar um DAO.");
         } else {
-            return new PapelDAO(conexao);
+            return new FuncionarioDAO(conexao);
         }
     }
 
