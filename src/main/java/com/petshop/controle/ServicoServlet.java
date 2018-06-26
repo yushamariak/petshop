@@ -8,9 +8,11 @@ package com.petshop.controle;
 
 import com.petshop.modelo.Pet;
 import com.petshop.modelo.Servico;
+import com.petshop.modelo.Usuario;
 import com.petshop.modelo.dao.DAOFactory;
 import com.petshop.modelo.dao.PetDAO;
 import com.petshop.modelo.dao.ServicoDAO;
+import com.petshop.modelo.dao.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
@@ -56,6 +58,9 @@ public class ServicoServlet extends HttpServlet {
                 List<Servico> servicos = daoServico.buscarTodos();
                 request.setAttribute("servicos", servicos);
                 System.out.println("MAMNANANOAONAONAOANNA :::: " + servicos);
+                UsuarioDAO daoUsuario = factory.criarUsuarioDAO();
+                List<Usuario> usuarios = daoUsuario.buscarTodos();
+                request.setAttribute("usuarios", usuarios);
                 RequestDispatcher rd = request.getRequestDispatcher("/newServico.jsp");
                 rd.forward(request, response);
             } catch (SQLException ex) {
@@ -72,13 +77,14 @@ public class ServicoServlet extends HttpServlet {
             int servico = Integer.parseInt(request.getParameter("servico"));
             int pet = Integer.parseInt(request.getParameter("pet"));
             String data = request.getParameter("data_servico");
+            int funcionario = Integer.parseInt(request.getParameter("user"));
 
             DAOFactory factory = new DAOFactory();
             try {
                 factory.abrirConexao();
                 ServicoDAO dao = factory.criarServicoDAO();
 
-                dao.gravar(pet, servico, 1, data);
+                dao.gravar(pet, servico, funcionario, data);
 
             } catch (SQLException ex) {
                 DAOFactory.mostrarSQLException(ex);

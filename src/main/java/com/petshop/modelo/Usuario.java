@@ -11,7 +11,15 @@ package com.petshop.modelo;
  */
 public class Usuario {
     int idUsuario;
-    String login, senha;
+    String login, senha, nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public Usuario(int idUsuario, String login, String senha) {
         this.idUsuario = idUsuario;

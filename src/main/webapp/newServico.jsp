@@ -31,7 +31,9 @@
                     Pets <span class="sr-only">(current)</span>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Novo</a>
+                    <form action="/PetShop/inserir.html">                
+                      <button type="submit" class="btn btn-default dropdown-item">Novo</button>
+                    </form>
                     <a class="dropdown-item" href="/PetShop/pet/listar">Listar</a>
                   </div>
                 </li>
@@ -76,6 +78,14 @@
                <select class="form-control form-control-lg" name="pet" id="pet">
                  <c:forEach var="pet" items="${pets}">
                    <option value="${pet.idPet}">${pet.nome}</option>
+                  
+                   </c:forEach>
+                </select>
+            </div>
+            <div class="form-group col-sm-12" style="padding-left: 30px;padding-right: 30px;">
+               <select class="form-control form-control-lg" name="user" id="user">
+                 <c:forEach var="user" items="${usuarios}">
+                   <option value="${user.idUsuario}">${user.nome}</option>
                   
                    </c:forEach>
                 </select>

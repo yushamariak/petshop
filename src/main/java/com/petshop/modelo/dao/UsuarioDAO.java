@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,10 +28,11 @@ public class UsuarioDAO {
     
     
     public void gravar(Usuario contato) throws SQLException {
-        String insercao = "INSERT INTO usuarios (login, senha) VALUES (?, ?);";
+        String insercao = "INSERT INTO usuarios (login, senha, nome) VALUES (?, ?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, contato.getLogin());
             pstmt.setString(2, contato.getSenha());
+            pstmt.setString(3, contato.getNome());
             int resultado = pstmt.executeUpdate();
             if (resultado == 1) {
                 ResultSet rs = pstmt.getGeneratedKeys();
@@ -74,10 +78,11 @@ public class UsuarioDAO {
     }
 
     public void atualizar(Usuario contato) throws SQLException {
-        String alteracao = "UPDATE usuarios SET login = ?, senha = ? WHERE idUsuario = ?;";
+        String alteracao = "UPDATE usuarios SET login = ?, senha = ?, nome = ? WHERE idUsuario = ?;";
         try (PreparedStatement pstmt = conexao.prepareStatement(alteracao)) {
             pstmt.setString(1, contato.getLogin());
             pstmt.setString(2, contato.getSenha());
+            pstmt.setString(3, contato.getNome());
             int alteracoes = pstmt.executeUpdate();
             if (alteracoes == 1) {
                 System.out.println("\nAlteracao bem sucedida.");
@@ -104,28 +109,26 @@ public class UsuarioDAO {
             }
         }
         return contato;
-    }
+    }*/
 
-    public List<Contato> buscarTodos() throws SQLException {
-        Contato contato;
-        List<Contato> contatos = new ArrayList<>();
-        String selecao = "SELECT * FROM contato";
+    public List<Usuario> buscarTodos() throws SQLException {
+        Usuario contato;
+        List<Usuario> contatos = new ArrayList<>();
+        String selecao = "SELECT * FROM usuarios";
         try (Statement stmt = conexao.createStatement()) {
             try (ResultSet rs = stmt.executeQuery(selecao)) {
                 while (rs.next()) {
-                    contato = new Contato();
-                    contato.setIdContato(rs.getLong(1));
+                    contato = new Usuario();
+                    contato.setIdUsuario(rs.getInt(1));
                     contato.setNome(rs.getString(2));
-                    contato.setEndereco(rs.getString(3));
-                    contato.setTelefone(rs.getString(4));
-                    contato.setEmail(rs.getString(5));
+                    contato.setLogin(rs.getString(3));
                     contatos.add(contato);
                 }
             }
         }
         return contatos;
     }
-
+/*
     public List<Contato> buscarNome(String nome) throws SQLException {
         Contato contato;
         List<Contato> contatos = new ArrayList<>();

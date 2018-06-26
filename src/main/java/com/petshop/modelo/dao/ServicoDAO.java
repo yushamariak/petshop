@@ -26,7 +26,7 @@ public class ServicoDAO {
     }
         
     public void gravar(int idPet, int idServico, int idFuncionario, String data_atendimento) throws SQLException {
-        String insercao = "INSERT INTO pets_funcionarios (pet_id, funcionario_id, data_atendimento, servico_id) VALUES (?, ?, ?, ?);";
+        String insercao = "INSERT INTO pets_funcionarios (pet_id, usuario_id, data_atendimento, servico_id) VALUES (?, ?, ?, ?);";
         try (PreparedStatement pstmt = conexao.prepareStatement(insercao, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, idPet);
             pstmt.setInt(2, idFuncionario);
