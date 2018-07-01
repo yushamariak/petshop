@@ -6,18 +6,30 @@
 package com.petshop.controle;
 
 import com.petshop.modelo.Pet;
+import com.petshop.modelo.dao.ConexaoFactory;
 import com.petshop.modelo.dao.DAOFactory;
 import com.petshop.modelo.dao.PetDAO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -167,6 +179,32 @@ public class PetServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/mensagem.jsp");
             request.setAttribute("mensagem", "Pet Alterado com Sucesso.");
             rd.forward(request, response);
+        } else if(caminho.equals("/pet/relatorio")){
+           System.out.println("#### Entrei no relatorio mano!!!!! <<<<<<<<<<------");
+             try{
+                response.setContentType("application/pdf");
+               
+                ServletOutputStream saidaParaBrowser;
+                saidaParaBrowser = response.getOutputStream();
+
+                InputStream arquivoJasper = PetServlet.class.getResourceAsStream("/relatorioPetshop.jasper");
+
+                Connection conexao = ConexaoFactory.getConexao();
+
+                Map<String, Object> parametros = new HashMap<>();
+                parametros.put("TITULO", "NOVO TITULO");
+                 System.out.println("antes:: "+ arquivoJasper);
+                //JasperPrint print = JasperFillManager.fillReport(arquivoJasper, null, conexao);
+                JasperPrint print = JasperFillManager.fillReport(arquivoJasper, null, conexao);
+                 System.out.println("depois");
+                JasperExportManager.exportReportToPdfStream(print, saidaParaBrowser);
+                saidaParaBrowser.close();  // fecha a stream.
+
+            } catch (SQLException ex) {
+                Logger.getLogger(PetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JRException ex) {
+                Logger.getLogger(PetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
            
     }

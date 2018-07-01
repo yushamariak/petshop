@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subPetshop" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cebe6b94-5ef1-42a3-a34f-ef237fd34842">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="290"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="700"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="petshop"/>
+	<parameter name="IdPet" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT petshop.pets_funcionarios.`idPetFun`,
+	petshop.pets_funcionarios.pet_id,
+	petshop.usuarios.nome,
+	petshop.pets_funcionarios.data_atendimento,
+	petshop.servicos.descricao
+FROM petshop.pets_funcionarios
+inner join petshop.servicos on petshop.pets_funcionarios.servico_id = petshop.servicos.idServico
+inner join petshop.usuarios on petshop.pets_funcionarios.usuario_id = petshop.usuarios.idUsuario
+WHERE petshop.pets_funcionarios.pet_id =  $P{IdPet} ]]>
+	</queryString>
+	<field name="idPetFun" class="java.lang.Integer"/>
+	<field name="pet_id" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="data_atendimento" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<group name="idPetFun">
+		<groupExpression><![CDATA[$F{idPetFun}]]></groupExpression>
+	</group>
+	<group name="pet_id">
+		<groupExpression><![CDATA[$F{pet_id}]]></groupExpression>
+	</group>
+	<group name="nome">
+		<groupExpression><![CDATA[$F{nome}]]></groupExpression>
+	</group>
+	<group name="data_atendimento">
+		<groupExpression><![CDATA[$F{data_atendimento}]]></groupExpression>
+	</group>
+	<group name="descricao">
+		<groupExpression><![CDATA[$F{descricao}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="114" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="2d408548-1ea8-4280-9c7c-dc94e6642a04"/>
+				<textFieldExpression><![CDATA[$F{idPetFun}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="51840711-9846-4e68-8351-788e94ed790d"/>
+				<text><![CDATA[servico:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="109" height="16" uuid="f880ce42-fd83-45ef-85cd-cabcc24e026a"/>
+				<textFieldExpression><![CDATA[$F{data_atendimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="20" width="109" height="16" uuid="5dbc3474-d68d-4aeb-95fd-d3ef75ff8100"/>
+				<text><![CDATA[data_atendimento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="99" y="38" width="102" height="19" uuid="d7d2c006-e555-4ba4-878e-1464721dfbc2"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="38" width="102" height="19" uuid="e1657e4a-1c8e-4cb4-b09f-2773428689b3"/>
+				<text><![CDATA[descricao:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="98" y="57" width="104" height="17" uuid="68eaf59b-9910-4b2e-8c7b-4514ab3a2f18"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-2" y="57" width="104" height="17" uuid="9ce762c8-e7e5-409a-ae28-1f69fd10871e"/>
+				<text><![CDATA[Funcionario:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

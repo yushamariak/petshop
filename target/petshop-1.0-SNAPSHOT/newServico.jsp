@@ -35,6 +35,7 @@
                       <button type="submit" class="btn btn-default dropdown-item">Novo</button>
                     </form>
                     <a class="dropdown-item" href="/PetShop/pet/listar">Listar</a>
+                    <a class="dropdown-item" href="/PetShop/pet/relatorio">Relatorio</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">

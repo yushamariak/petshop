@@ -25,6 +25,7 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Novo</a>
                     <a class="dropdown-item" href="/PetShop/pet/listar">Listar</a>
+                    <a class="dropdown-item" href="/PetShop/pet/relatorio">Relatorio</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">

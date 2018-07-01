@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioPetshop" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58797d66-e9b6-44ee-9f9b-3cc4ddf8fe95">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[cGV0c2hvcC5wZXRzIEFTICw2MSwxMjAsMjg0Y2E0MGUtOGMyMi00YjI3LThiZWItZjRlNDg3ZTRl
+M2NmOw==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="petshop"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT petshop.pets.`idPet`,
+	petshop.pets.nome,
+	petshop.pets.data_nascimento,
+	petshop.pets.sexo,
+	petshop.pets.raca,
+	petshop.pets.especie,
+	petshop.clientes.nome
+FROM petshop.pets
+INNER JOIN petshop.clientes on petshop.pets.`cliente_id` =  petshop.clientes.`idCliente`]]>
+	</queryString>
+	<field name="idPet" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="data_nascimento" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="raca" class="java.lang.String"/>
+	<field name="especie" class="java.lang.String"/>
+	<field name="COLUMN_7" class="java.lang.String"/>
+	<group name="idPet">
+		<groupExpression><![CDATA[$F{idPet}]]></groupExpression>
+	</group>
+	<group name="nome">
+		<groupExpression><![CDATA[$F{nome}]]></groupExpression>
+	</group>
+	<group name="data_nascimento">
+		<groupExpression><![CDATA[$F{data_nascimento}]]></groupExpression>
+	</group>
+	<group name="sexo">
+		<groupExpression><![CDATA[$F{sexo}]]></groupExpression>
+	</group>
+	<group name="raca">
+		<groupExpression><![CDATA[$F{raca}]]></groupExpression>
+	</group>
+	<group name="especie">
+		<groupExpression><![CDATA[$F{especie}]]></groupExpression>
+	</group>
+	<group name="COLUMN_7">
+		<groupExpression><![CDATA[$F{COLUMN_7}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<textField>
+				<reportElement x="160" y="28" width="170" height="32" forecolor="#1BCF6C" uuid="cb612bc4-cdd2-42b3-8f0f-d4ef9ff424b5">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="75">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="23"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PETS"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="211" splitType="Stretch">
+			<textField>
+				<reportElement x="120" y="10" width="101" height="20" uuid="cbd2112a-c086-4b10-b11e-6e7a78afb0fa"/>
+				<textFieldExpression><![CDATA[$F{idPet}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="10" width="101" height="20" uuid="ebbef2d9-5fdb-4da0-b509-62dad93dbf28"/>
+				<text><![CDATA[idPet:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="30" width="100" height="18" uuid="0278f24f-2c0f-4e7c-82f0-c8002bc932fb"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="30" width="100" height="18" uuid="aa0ce26f-b80b-437f-bb69-7e13eaa4fb87"/>
+				<text><![CDATA[nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="48" width="93" height="21" uuid="1378f5b2-e2f9-4177-ac1c-97e1fd1102ff"/>
+				<textFieldExpression><![CDATA[$F{data_nascimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="48" width="93" height="21" uuid="542e4d99-5361-43ba-8202-ad54956bd039"/>
+				<text><![CDATA[data_nascimento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="69" width="100" height="20" uuid="d4311efc-752b-4473-be30-11044f8c0989"/>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="69" width="100" height="20" uuid="b4df5250-694d-47d9-9c2e-d7365bdabfa9"/>
+				<text><![CDATA[sexo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="94" width="100" height="13" uuid="719a441f-eee5-488c-9c91-a622b5df7fb4"/>
+				<textFieldExpression><![CDATA[$F{raca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="94" width="100" height="13" uuid="3f3544b8-7f8d-4013-a822-b96bbfb48d66"/>
+				<text><![CDATA[raca:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="110" width="100" height="20" uuid="16ae9fa3-185f-4503-97c4-d5a87aa44e5e"/>
+				<textFieldExpression><![CDATA[$F{especie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="110" width="100" height="20" uuid="4b827666-d60f-40fd-8231-012fb55050a3"/>
+				<text><![CDATA[especie:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="130" width="103" height="19" uuid="41e07fc4-f54f-409d-8002-36a44d2b2444"/>
+				<textFieldExpression><![CDATA[$F{COLUMN_7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="130" width="103" height="19" uuid="a8c88635-c66d-40c4-96f7-11a8016c1882"/>
+				<text><![CDATA[Dono:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="170" width="555" height="30" uuid="b015f72a-8b8d-437d-8f74-48e6142519d1"/>
+				<subreportParameter name="IdPet">
+					<subreportParameterExpression><![CDATA[$F{idPet}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["subPetshop.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement positionType="Float" x="-13" y="206" width="580" height="1" uuid="d1d089ad-5ad9-4364-9bee-403dee73c27c"/>
+			</line>
+			<textField>
+				<reportElement x="120" y="149" width="240" height="32" printWhenGroupChanges="COLUMN_7" forecolor="#1BCF6C" uuid="62d99059-db27-403a-adfb-5e0853855a10">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="75">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Historico Servicos"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
